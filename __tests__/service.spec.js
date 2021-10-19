@@ -3,6 +3,7 @@ const pChainMethods = require('../src//services/p-chain');
 const xChainMethods = require('../src/services/x-chain');
 
 
+jest.setTimeout(50000);
 
 describe('C-chain', () => {
     it('test get Block By Hash without starting client', async () => {

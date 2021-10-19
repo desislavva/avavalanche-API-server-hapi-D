@@ -1,7 +1,10 @@
 const jestOpenAPI = require('jest-openapi').default;
 const { default: axios } = require('axios');
 const path = require('path');
-require('dotenv').config()
+require('dotenv').config();
+
+
+jest.setTimeout(50000);
 
 jestOpenAPI(path.join(__dirname, '../openapi/openapi.yml'));
 
