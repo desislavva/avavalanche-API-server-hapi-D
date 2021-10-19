@@ -1,5 +1,9 @@
 const Hapi = require('@hapi/hapi');
+
 const networkMethods = require('./src/controllers/network');
+const blocksMethods = require('./src/controllers/blocks');
+const transactionsMethods = require('./src/controllers/transactions');
+const addressMethods = require('./src/controllers/address');
 
 
 
@@ -38,6 +42,45 @@ const init = async () => {
     });
 
     /////////// Blocks routes ////////////////
+
+    server.route({
+        method: 'GET',
+        path: '/blocks/hash/{hash}',
+        handler: async (request, h) => {
+            const response = await blocksMethods.getBlockByHash(request);
+            return { response };
+        }
+        
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/blocks/number/{blocknumber}',
+        handler: async (request, h) => {
+            const response = await blocksMethods.getBlockByNumber(request);
+            return { response };
+        }
+        
+    });
+    server.route({
+        method: 'GET',
+        path: '/blocks/numbers/{blocknumber}/{count}',
+        handler: async (request, h) => {
+            const response = await blocksMethods.getXBlocksFromNthFromCChain(request);
+            return { response };
+        }
+        
+    });
+
+    /////////// Transactions routes ////////////////
+
+
+
+
+
+
+
+    /////////// Address routes ////////////////
 
 
 
