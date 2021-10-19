@@ -32,7 +32,7 @@ describe('GET /address/hash/{hash}', () => {
 describe('GET /blocks/hash/{hash}', () => {
     it('should satisfy OpenAPI spec', async () => {
         const hash = '0x0bcd0c4e5635f21dd4352aa82692a5e29bcf2c5373da9427e5ab38bd4c7cfd33'
-        const res = await axios.get(`http://localhost:4444//blocks/hash/${hash}`)
+        const res = await axios.get(`http://localhost:4444/blocks/hash/${hash}`)
 
         expect(res.status).toEqual(200);
         expect(res).toSatisfyApiSpec();
@@ -43,7 +43,7 @@ describe('GET /blocks/hash/{hash}', () => {
 describe('GET /blocks/number/{blockNumber}', () => {
     it('should satisfy OpenAPI spec', async () => {
         const blockNumber = 1940150;
-        const res = await axios.get(`http://localhost:4444//blocks/number/${blockNumber}`)
+        const res = await axios.get(`http://localhost:4444/blocks/number/${blockNumber}`)
 
         expect(res.status).toEqual(200);
         expect(res).toSatisfyApiSpec();
