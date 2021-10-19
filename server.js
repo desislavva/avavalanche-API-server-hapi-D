@@ -62,6 +62,7 @@ const init = async () => {
         }
         
     });
+
     server.route({
         method: 'GET',
         path: '/blocks/numbers/{blocknumber}/{count}',
@@ -74,10 +75,56 @@ const init = async () => {
 
     /////////// Transactions routes ////////////////
 
+ server.route({
+        method: 'GET',
+        path: '/transactions/hash/{hash}',
+        handler: async (request, h) => {
+            const response = await transactionsMethods.getTransactionByHash(request);
+            return { response };
+        }
+        
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/transactions/{address}/{n}/{x}',
+        handler: async (request, h) => {
+            const response = await transactionsMethods.getXTransactionsAfterNthFromAddress(request);
+            return { response };
+        }
+        
+    });
 
 
+    server.route({
+        method: 'GET',
+        path: '/transactions/{n}/{x}',
+        handler: async (request, h) => {
+            const response = await transactionsMethods.getXPendingTransactionsAfterNth(request);
+            return { response };
+        }
+        
+    });
 
+    server.route({
+        method: 'GET',
+        path: '/transactions/recentxchain',
+        handler: async (request, h) => {
+            const response = await transactionsMethods.getRecentTransactionsFromXChain();
+            return { response };
+        }
+        
+    });
 
+    server.route({
+        method: 'GET',
+        path: '/transactions/recentpchain',
+        handler: async (request, h) => {
+            const response = await transactionsMethods.getRecentTransactionsFromPChain();
+            return { response };
+        }
+        
+    });
 
 
     /////////// Address routes ////////////////

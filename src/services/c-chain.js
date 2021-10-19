@@ -4,8 +4,7 @@ const web3 = require('web3-utils');
 
 dotenv.config();
 
-////////////////////////// Blocks //////////////////////////////////
-
+//GET block info by hash from C-chain
 exports.getBlockByHashFromCChain = async (hash) => {
     let result;
 
@@ -34,7 +33,7 @@ exports.getBlockByHashFromCChain = async (hash) => {
     return result;
 };
 
-
+//GET block info by number from C-chain
 exports.getBlockByNumberFromCChain = async (number) => {
     let hexNumber;
     
@@ -70,41 +69,7 @@ exports.getBlockByNumberFromCChain = async (number) => {
     return result;
 };
 
-
-//////////////////////////// Address /////////////////////////////
-
-exports.getAddressInfoFromCChain = async (cChainAddress) => {
-    let balanceResult;
-
-    await axios.post(process.env.C_CHAIN_BC_CLIENT_BLOCK_ENDPOINT, {
-        jsonrpc: '2.0',
-        id: 1,
-        method: 'eth_getBalance',
-        params: [`${cChainAddress}`, 'latest']
-    }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        },
-    }).then(response => {
-        balanceResult = [0, response.data.result];
-    }).catch(error => {
-        if(!error.response) {
-            console.log("connection refused to avalanche client");
-            balanceResult = [1, JSON.parse('{"result":"connection refused to avalanche client"}')];
-        } else {
-            console.log(error.response.data);
-            balanceResult = [1, error.response.data];
-        }
-    });
-    
-    if (balanceResult[0] == 1) {
-        return balanceResult;
-    }
-
-
-////////////////// Transactions //////////////////////////
-
+//GET transaction by hash from C-chain
 exports.getTransactionByHashFromCChain = async (hash) => {
     let result;
 
@@ -134,22 +99,56 @@ exports.getTransactionByHashFromCChain = async (hash) => {
 };
 
 
-const responseForTransactionCount = await axios.post(process.env.C_CHAIN_BC_CLIENT_BLOCK_ENDPOINT, {
-    jsonrpc: '2.0',
-    id: 1,
-    method: 'eth_getTransactionCount',
-    params: [`${cChainAddress}`, 'latest']
-}, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    },
-});
+//GET address info by hash from C-chain
+exports.getAddressInfoFromCChain = async (cChainAddress) => {
+    let balanceResult;
 
-return [web3.fromWei(`${balanceResult[1]}`, 'ether'), parseInt(responseForTransactionCount.data.result)];
+    await axios.post(process.env.C_CHAIN_BC_CLIENT_BLOCK_ENDPOINT, {
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'eth_getBalance',
+        params: [`${cChainAddress}`, 'latest']
+    }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+    }).then(response => {
+        balanceResult = [0, response.data.result];
+    }).catch(error => {
+        if(!error.response) {
+            console.log("connection refused to avalanche client");
+            balanceResult = [1, JSON.parse('{"result":"connection refused to avalanche client"}')];
+        } else {
+            console.log(error.response.data);
+            balanceResult = [1, error.response.data];
+        }
+    });
+    
+    if (balanceResult[0] == 1) {
+        return balanceResult;
+    }
+
+    const responseForTransactionCount = await axios.post(process.env.C_CHAIN_BC_CLIENT_BLOCK_ENDPOINT, {
+        jsonrpc: '2.0',
+        id: 1,
+        method: 'eth_getTransactionCount',
+        params: [`${cChainAddress}`, 'latest']
+    }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+    });
+
+    return [web3.fromWei(`${balanceResult[1]}`, 'ether'), parseInt(responseForTransactionCount.data.result)];
 };
 
 
+//GET X transactions from address after N-th transaction from C-chain - Ortelius API
+
+
+//GET X unaccepted transactions after N-th transaction from C-chain
 exports.getXPendingTransactionsAfterNthFromCChain = async (n, x) => {
     let result;
 
