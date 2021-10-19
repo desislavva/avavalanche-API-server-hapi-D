@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const cChainMethods = require('../services/c-chain');
+
 const xChainMethods = require('../services/x-chain');
 const pChainMethods = require('../services/p-chain');
 
