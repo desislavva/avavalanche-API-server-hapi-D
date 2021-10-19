@@ -129,7 +129,15 @@ const init = async () => {
 
     /////////// Address routes ////////////////
 
-
+    server.route({
+        method: 'GET',
+        path: '/address/hash/{hash}',
+        handler: async (request, h) => {
+            const response = await addressMethods.getAddressInfoByHash(request);
+            return { response };
+        }
+        
+    });
 
 };
 
