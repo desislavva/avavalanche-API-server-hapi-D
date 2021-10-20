@@ -8,6 +8,7 @@ const transactionsMethods = require('./src/controllers/transactions');
 const addressMethods = require('./src/controllers/address');
 
 
+
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -29,6 +30,8 @@ const init = async () => {
             return 'Hello from hapi.js!';
         }
     });
+
+    
     
     /////////// Network routes ////////////////
 
