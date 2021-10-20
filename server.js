@@ -1,10 +1,11 @@
 const Hapi = require('@hapi/hapi');
 
+const websocketServer = require('./websocket/websocket-server');
+
 const networkMethods = require('./src/controllers/network');
 const blocksMethods = require('./src/controllers/blocks');
 const transactionsMethods = require('./src/controllers/transactions');
 const addressMethods = require('./src/controllers/address');
-
 
 
 const dotenv = require('dotenv');
