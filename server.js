@@ -31,8 +31,7 @@ const init = async () => {
         }
     });
 
-    
-    
+
     /////////// Network routes ////////////////
 
     server.route({

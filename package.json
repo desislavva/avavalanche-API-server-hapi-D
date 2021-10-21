@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "jest"
+    "test": "jest",
+    "pretty": "prettier --write src/*/** __tests__/** websocket/**",
+    "lint": "eslint src --color"
   },
   "author": "",
   "license": "ISC",
@@ -13,12 +15,15 @@
     "@hapi/hapi": "^20.2.1",
     "axios": "^0.23.0",
     "dotenv": "^10.0.0",
+    "eslint": "^8.0.1",
     "fs": "^0.0.1-security",
     "hapi-swagger": "^14.2.4",
     "hapi-swaggered-ui": "^3.1.0",
     "jest": "^27.3.1",
     "jest-openapi": "^0.14.1",
     "nodemon": "^2.0.13",
+    "prettier": "^2.4.1",
+    "standard": "^16.0.4",
     "util": "^0.12.4",
     "web3-utils": "^1.6.0",
     "ws": "^8.2.3"
